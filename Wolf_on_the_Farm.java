@@ -1,3 +1,76 @@
+MyProgram.java:
+--------------
+import java.util.Scanner;
+import java.util.Random;
+
+public class MyProgram
+{
+    public static void main(String[] args)
+    {
+        // instantiate wolf, donkey, and sheep here 
+        Random rand = new Random();
+        Wolf wolf = new Wolf(rand.nextInt(20), rand.nextInt(20));
+        Donkey donkey = new Donkey(rand.nextInt(20), rand.nextInt(20));      
+        Sheep sheep = new Sheep(rand.nextInt(20), rand.nextInt(20));
+    
+        System.out.println("There are " + Animal.getTotalAnimals() + " animals on the farm.");
+        System.out.println(" ");
+        System.out.println("Your name is Sly Wolf.");
+        System.out.println("Your mission is to eat the donkey and the sheep before you starve.");
+        System.out.println("The pen is 20x20 in size and you can move one square up, down, left, or right each move.");
+         System.out.println(" ");
+        System.out.println("You can do one of three things each turn:");
+        System.out.println("1. Move (indicate up, down, left, or right)");
+        System.out.println("2. Attack (if you are within one square of an animal)");
+        System.out.println("3. Ask for current position of animals in pen.");
+        Scanner input = new Scanner(System.in);
+        int choice;
+        System.out.println(" ");
+        while (wolf.getHealth() > 0)
+        {
+            System.out.println("What would you like to do? (1. move 2. attack 3. ask for position) ");
+            choice = input.nextInt();
+            if (choice == 1) 
+            {
+                System.out.println("Would you like to move Up, Down, Left, or Right? (u,d,l,r)");
+                char direction = input.next().charAt(0);
+                // Verify the user's choice for direction
+                while (direction != 'u' && direction != 'd' && direction != 'l' && direction != 'r')
+                {
+                    System.out.println("Invalid direction. Enter u, d, l, or r.");
+                    direction = input.next().charAt(0);
+                }
+                // Move the wolf based on the user's choice
+                wolf.move(direction);
+            } else if (choice == 2)
+            
+            {
+                wolf.attack(donkey);
+                wolf.attack(sheep);
+            } else
+            
+            {
+                System.out.println("Health and Position of the animals:");
+                System.out.println("Wolf: " + wolf.toString());
+                System.out.println("Donkey: " + donkey.toString());
+                System.out.println("Sheep: " + sheep.toString());
+            }
+            wolf.setHealth(wolf.getHealth() - 1);
+            donkey.moveRandom();
+            sheep.moveRandom();
+            donkey.kick(wolf);
+            sheep.bleat(wolf);
+        }
+    }
+}
+            
+            // move the sheep and donkey to random new position using move_random()
+            
+        // end while (true)
+        
+    // end main()
+    
+ // end MyProgram
 Animal.java:
 -----------
 public class Animal
@@ -98,80 +171,6 @@ public class Donkey extends Animal
     
     
 }
-
-MyProgram.java:
---------------
-import java.util.Scanner;
-import java.util.Random;
-
-public class MyProgram
-{
-    public static void main(String[] args)
-    {
-        // instantiate wolf, donkey, and sheep here 
-        Random rand = new Random();
-        Wolf wolf = new Wolf(rand.nextInt(20), rand.nextInt(20));
-        Donkey donkey = new Donkey(rand.nextInt(20), rand.nextInt(20));      
-        Sheep sheep = new Sheep(rand.nextInt(20), rand.nextInt(20));
-    
-        System.out.println("There are " + Animal.getTotalAnimals() + " animals on the farm.");
-        System.out.println(" ");
-        System.out.println("Your name is Sly Wolf.");
-        System.out.println("Your mission is to eat the donkey and the sheep before you starve.");
-        System.out.println("The pen is 20x20 in size and you can move one square up, down, left, or right each move.");
-         System.out.println(" ");
-        System.out.println("You can do one of three things each turn:");
-        System.out.println("1. Move (indicate up, down, left, or right)");
-        System.out.println("2. Attack (if you are within one square of an animal)");
-        System.out.println("3. Ask for current position of animals in pen.");
-        Scanner input = new Scanner(System.in);
-        int choice;
-        System.out.println(" ");
-        while (wolf.getHealth() > 0)
-        {
-            System.out.println("What would you like to do? (1. move 2. attack 3. ask for position) ");
-            choice = input.nextInt();
-            if (choice == 1) 
-            {
-                System.out.println("Would you like to move Up, Down, Left, or Right? (u,d,l,r)");
-                char direction = input.next().charAt(0);
-                // Verify the user's choice for direction
-                while (direction != 'u' && direction != 'd' && direction != 'l' && direction != 'r')
-                {
-                    System.out.println("Invalid direction. Enter u, d, l, or r.");
-                    direction = input.next().charAt(0);
-                }
-                // Move the wolf based on the user's choice
-                wolf.move(direction);
-            } else if (choice == 2)
-            
-            {
-                wolf.attack(donkey);
-                wolf.attack(sheep);
-            } else
-            
-            {
-                System.out.println("Health and Position of the animals:");
-                System.out.println("Wolf: " + wolf.toString());
-                System.out.println("Donkey: " + donkey.toString());
-                System.out.println("Sheep: " + sheep.toString());
-            }
-            wolf.setHealth(wolf.getHealth() - 1);
-            donkey.moveRandom();
-            sheep.moveRandom();
-            donkey.kick(wolf);
-            sheep.bleat(wolf);
-        }
-    }
-}
-            
-            // move the sheep and donkey to random new position using move_random()
-            
-        // end while (true)
-        
-    // end main()
-    
- // end MyProgram
 
 Sheep.java:
 ----------
